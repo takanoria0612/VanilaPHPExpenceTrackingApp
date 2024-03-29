@@ -8,10 +8,16 @@
 </head>
 <body>
     <h1>新規経費報告</h1>
+    <link rel="stylesheet" href="css/styles.css">
     <?php if(isset($error_message)): ?>
         <p class="error"><?php echo $error_message; ?></p>
     <?php endif; ?>
     <form action="new_expense.php" method="post">
+                <!-- 申請日のセクションを追加 -->
+        <div class="form-group">
+            <label for="applicationDate2">申請日:</label>
+            <input type="date" id="applicationDate" name="applicationDate2" value="<?php echo date('Y-m-d'); ?>" required>
+        </div>
         <div class="form-group">
             <label for="date">日付:</label>
             <input type="date" id="date" name="date" required>
@@ -21,8 +27,14 @@
             <input type="text" id="routeName" name="routeName" required>
         </div>
         <div class="form-group">
-            <label for="applicant">申請者:</label>
-            <input type="text" id="applicant" name="applicant" required>
+            <label for="applicant">精算種別:</label>
+            <select id="applicant" name="applicant" required>
+                <option value="交通費精算">交通費精算</option>
+                <option value="出張旅費精算">出張旅費精算</option>
+                <option value="定期代精算">定期代精算</option>
+                <option value="その他">その他</option>
+            </select>
+
         </div>
         <div class="form-group">
             <label for="stationName1">駅名１:</label>
@@ -46,3 +58,4 @@
     </form>
 </body>
 </html>
+

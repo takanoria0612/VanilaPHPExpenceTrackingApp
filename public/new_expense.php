@@ -1,4 +1,5 @@
 <?php
+// public/new_expense.php
 require_once '../config/Database.php';
 require_once '../controller/ExpenseController.php';
 

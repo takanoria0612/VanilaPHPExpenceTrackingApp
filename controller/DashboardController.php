@@ -1,4 +1,5 @@
 <?php
+//controller/DashboardController.php
 require_once '../model/UserDataModel.php';
 
 class DashboardController {
@@ -18,4 +19,6 @@ class DashboardController {
 
         return $expenseReports;
     }
+    // Corrected the method call to match an existing method in UserDataModel
+
 }

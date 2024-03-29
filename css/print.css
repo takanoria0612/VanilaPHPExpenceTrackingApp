@@ -1,0 +1,130 @@
+.application-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.application-form h1 {
+    text-align: center;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+.approval-section {
+    display: flex;
+    flex-direction: column; /* 承認欄と日付を縦に並べる */
+}
+.approval-section span,
+.dates div,
+.total-amount span {
+    display: block;
+    margin-bottom: 5px;
+}
+approval-title th {
+    text-align: center;
+}
+.approval {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dates {
+    display: flex;
+    justify-content: space-between;
+}
+
+.checkbox label {
+    margin-right: 10px;
+}
+
+.detail-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+.approval-table {
+    /* 既存の幅が50%であれば、それに10%を加えて55%にする */
+    width: 100px;
+    border-collapse: collapse; /* テーブルのボーダーを重ねる */
+    /* その他のスタイル設定 */
+}
+.detail-section th, .detail-section td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+}
+
+.total-amount {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.seal-section p {
+    text-align: right;
+    margin-top: 50px; /* Adjust space for seal */
+}
+
+
+.approval-table th, .approval-table td {
+    width: 33%; /* 各列の幅を均等に設定 */
+    border: 1px solid #000;
+    text-align: center;
+    vertical-align: middle; /* 中央揃えに変更 */
+    height: 50px; /* 高さを50pxに設定 */
+}
+
+.approval-dates-container {
+    display: flex; /* Flexboxを使用して横一列に配置 */
+    text-align: center;
+    align-items: stretch; /* 子要素の高さを親要素に合わせて伸縮 */
+    width: 100%; /* コンテナの幅を100%に設定 */
+}
+/* 行の高さを設定 */
+.signature-space, .empty-row {
+    height: 30px; /* 基準となる行の高さ */
+}
+
+
+
+.dates-table {
+    width: auto; /* 日付テーブルの幅を内容に合わせる */
+    border-collapse: collapse; /* テーブルのボーダーを重ねる */
+    margin-top: 20px; /* 承認欄との間隔を設定 */
+    margin-left: auto; /* 左のマージンを自動で調整し、右寄りに配置 */
+    flex: none; /* フレックスアイテムの伸縮を無効にする */
+}
+
+.dates-table th,
+.dates-table td {
+    border: 1px solid #000; /* ボーダーを追加 */
+    text-align: left; /* 左揃え */
+    padding: 5px; /* パディングを追加 */
+    height: 50px; /* 高さを50pxに設定 */
+}
+
+.dates-table th {
+    width: 20%; /* 見出しの幅を設定 */
+}
+
+.dates-table td {
+    width: 80%; /* データの幅を設定 */
+}
+
+
+.approval-number-container {
+    text-align: left; /* 左揃え */
+    padding-bottom: 10px; /* 下の余白を設定 */
+}
+
+.dates-table {
+    display: inline-block;
+    vertical-align: top; /* Align the tops of the tables */
+    width: 48%; /* Set the width to less than 50% to account for margin */
+}
+.approval-table {
+    /* 既存の幅が50%であれば、それに10%を加えて55%にする */
+    width: calc(30%);
+    border-collapse: collapse; /* テーブルのボーダーを重ねる */
+    /* その他のスタイル設定 */
+}
+/* その他のスタイルは以前のCSS設定を維持 */

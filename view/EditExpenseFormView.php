@@ -20,9 +20,14 @@
                 <input type="text" id="routeName" name="routeName" value="<?php echo $expenseReport['routeName'] ?? ''; ?>" required>
             </div>
             <div class="form-group">
-                <label for="applicant">申請者:</label>
-                <input type="text" id="applicant" name="applicant" value="<?php echo $expenseReport['applicant'] ?? ''; ?>" required>
-            </div>
+            <label for="applicant">精算種別:</label>
+            <select id="applicant" name="applicant" required>
+                <option value="交通費精算" <?php echo ($expenseReport['applicant'] == '交通費精算') ? 'selected' : ''; ?>>交通費精算</option>
+                <option value="出張旅費精算" <?php echo ($expenseReport['applicant'] == '出張旅費精算') ? 'selected' : ''; ?>>出張旅費精算</option>
+                <option value="定期代精算" <?php echo ($expenseReport['applicant'] == '定期代精算') ? 'selected' : ''; ?>>定期代精算</option>
+                <option value="その他" <?php echo ($expenseReport['applicant'] == 'その他') ? 'selected' : ''; ?>>その他</option>
+            </select>
+        </div>
             <div class="form-group">
                 <label for="stationName1">駅名(出発):</label>
                 <input type="text" id="stationName1" name="stationName1" value="<?php echo $expenseReport['stationName1'] ?? ''; ?>" required>

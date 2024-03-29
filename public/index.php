@@ -20,16 +20,48 @@ if (!$userId) {
 
 // Remove the base path from the request URI to work in subdirectory
 $basePath = '/phpusdproject/public';
-$requestUri = str_replace($basePath, '', $_SERVER['REQUEST_URI']);
-$requestPath = trim($requestUri, '/');
+
+// Extract the path from REQUEST_URI
+$parsedUrl = parse_url($_SERVER['REQUEST_URI']);
+$requestPath = trim(str_replace($basePath, '', $parsedUrl['path']), '/');
+
+// コントローラーのインスタンス化
+$dashboardController = new DashboardController($db);
+$expenseController = new ExpenseController($db);
 
 // Simple routing
 switch ($requestPath) {
     case '':
     case 'index.php':
-        // Show Dashboard
-        $dashboardController = new DashboardController($db);
-        $expenseReports = $dashboardController->showExpenseReports($userId);
+
+        if (isset($_GET['search'])) {
+            if (!empty($_GET['searchDate'])) {
+                $searchDate = $_GET['searchDate'];
+                $date = new DateTime($searchDate);
+
+                // 日付を指定の形式でフォーマット
+                $formattedDate = $date->format('Y/m/d');
+                // 日付の形式が正しいかチェック
+                if (DateTime::createFromFormat('Y-m-d', $searchDate) !== false) {
+                    // 日付が正しい場合、検索を実行
+                    $expenseReports = $expenseController->searchExpenseReports($userId, $searchDate);
+                    // 検索結果の件数
+                    $searchResultCount = count($expenseReports);
+                } else {
+                    // 日付の形式が不正
+                    $warningMessage = "不正な日付形式です。";
+                    $expenseReports = [];
+                }
+            } else {
+                // 日付が選択されていない
+                $warningMessage = "日付を選択してください。";
+                $expenseReports = $dashboardController->showExpenseReports($userId);
+            }
+        } else {
+            // 検索が行われていない場合の通常のリスト表示処理
+            $expenseReports = $dashboardController->showExpenseReports($userId);
+        }
+                
         require '../view/DashboardView.php';
         break;
     case 'new_expense.php':
@@ -41,7 +73,8 @@ switch ($requestPath) {
     case 'edit_expense':
         $applicationNo = $_GET['applicationNo'] ?? null;
         $expenseController = new ExpenseController($db);
-        $expenseReport = $expenseController->getExpenseReportByApplicationNo($applicationNo);
+        // Correct method name is getExpenseReport
+        $expenseReport = $expenseController->getExpenseReport($applicationNo);
     
         if (!$expenseReport) {
             // Handle error if the expense report does not exist
@@ -61,5 +94,3 @@ switch ($requestPath) {
         require '../view/404.php';
         break;
 }
-
-// The 404.php file should handle undefined routes gracefully

@@ -33,5 +33,8 @@ class ExpenseController {
     public function getExpenseReport($applicationNo) {
         return $this->userDataModel->getExpenseReportByApplicationNo($applicationNo);
     }
+    public function searchExpenseReports($userId, $date) {
+        return $this->userDataModel->searchExpenseReportsByDate($userId, $date);
+    }
+    
 }
-

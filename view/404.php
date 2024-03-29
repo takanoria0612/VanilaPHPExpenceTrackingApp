@@ -1,2 +1,2 @@
 <?php
-echo '404';
+echo '40del4';

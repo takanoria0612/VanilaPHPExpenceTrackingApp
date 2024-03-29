@@ -134,25 +134,25 @@ class UserDataModel {
         return false;
     }
 
-    // Delete expense report
-    public function deleteExpenseReport($applicationNo) {
-        $query = 'DELETE FROM ' . $this->table . ' WHERE applicationNo = :applicationNo';
+    // // Delete expense report
+    // public function deleteExpenseReport($applicationNo) {
+    //     $query = 'DELETE FROM ' . $this->table . ' WHERE applicationNo = :applicationNo';
 
-        // Prepare statement
-        $stmt = $this->db->prepare($query);
+    //     // Prepare statement
+    //     $stmt = $this->db->prepare($query);
 
-        // Bind ID
-        $stmt->bindParam(':applicationNo', $applicationNo);
+    //     // Bind ID
+    //     $stmt->bindParam(':applicationNo', $applicationNo);
 
-        // Execute query
-        if($stmt->execute()) {
-            return true;
-        }
+    //     // Execute query
+    //     if($stmt->execute()) {
+    //         return true;
+    //     }
 
-        // Print error if something goes wrong
-        printf("Error: %s.\n", $stmt->error);
-        return false;
-    }
+    //     // Print error if something goes wrong
+    //     printf("Error: %s.\n", $stmt->error);
+    //     return false;
+    // }
     // Retrieve all expense reports for a specific user
     public function getExpenseReportsByUserId($userId) {
         $query = 'SELECT * FROM ' . $this->table . ' WHERE userId = :userId';
@@ -192,4 +192,43 @@ class UserDataModel {
 
         return $result;
     }
+    // Existing code...
+
+    public function deleteExpenseReport($applicationNo) {
+        $query = 'DELETE FROM ' . $this->table . ' WHERE applicationNo = :applicationNo';
+
+        // Prepare statement
+        $stmt = $this->db->prepare($query);
+
+        // Clean up and bind data
+        $applicationNo = htmlspecialchars(strip_tags($applicationNo));
+
+        // Bind data
+        $stmt->bindParam(':applicationNo', $applicationNo);
+
+        // Execute query
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+        
+    }
+    public function searchExpenseReportsByDate($userId, $date) {
+        $datePart = date('ymd', strtotime($date)); // 日付から年月日の部分を取得
+        $applicationNoLike = $datePart . '%'; // LIKE句で使用するために%を追加
+    
+        $query = "SELECT * FROM " . $this->table . " WHERE userId = :userId AND applicationNo LIKE :applicationNoLike";
+    
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':userId', $userId);
+        // 正しいパラメーター名`:applicationNoLike`を使用してバインド
+        $stmt->bindParam(':applicationNoLike', $applicationNoLike);
+    
+        $stmt->execute();
+    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+    
 }
